@@ -44,7 +44,9 @@ Clients create a socket using socket() and connect to a server using connect().
 After establishing a connection, clients can send and receive data using send() and recv().
 
 ## Use Cases of Socket Programming:
+
 Socket programming finds applications in various domains, including web development, file transfer protocols, online gaming, and real-time communication. It is the foundation for protocols like HTTP, FTP, and SMTP, which power the internet. Socket programming enables the development of both server and client applications, facilitating the exchange of information between devices in a networked environment.
+
 ## Example Use Cases:
 
 1.	Web servers: Web servers use socket programming to handle incoming HTTP requests from clients, serving web pages and content.
@@ -53,6 +55,41 @@ Socket programming finds applications in various domains, including web developm
 4.	Networked Games: Online multiplayer games rely on socket programming to facilitate communication between game clients and servers.
 5.	RPC mechanisms: which allow processes to execute code on a remote server, often use socket programming for communication.
 
+## Server.py
+```
+import socket
+s=socket.socket()
+s.connect(('localhost',8000))
+print(s.getsockname())
+print(s.recv(1024).decode())
+s.send("acknowledgement recived from the server".encode())
+```
+
+## Client.py
+```
+import socket
+from datetime import datetime
+s=socket.socket()
+s.bind(('localhost',8000))
+s.listen(5)
+c,addr=s.accept()
+print("Client Address : ",addr)
+now = datetime.now()
+c.send(now.strftime("%d/%m/%Y %H:%M:%S").encode())
+ack=c.recv(1024).decode()
+if ack:
+ print(ack)
+c.close()
+```
+
+## Server.py
+
+<img width="554" height="173" alt="Screenshot 2026-11-22 134301" src="https://github.com/user-attachments/assets/579ef27a-68ec-4548-9053-ea24a5e3e6ca" />
+
+## Client.py
+
+<img width="548" height="146" alt="Screenshot 2026-11-22 134334" src="https://github.com/user-attachments/assets/5a7a10cf-5aa2-40ab-83c3-988eed99b257" />
 
 ## Result:
+
 Thus the study of Socket Programming Completed Successfully
